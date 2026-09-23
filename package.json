@@ -10,7 +10,8 @@
     "build": "tsc",
     "test": "node --test dist/test/*.test.js",
     "verify": "node evaluation/verifier/run.js",
-    "evaluate": "node evaluation/harness/run.js"
+    "evaluate": "node evaluation/harness/run.js",
+    "evaluate:live": "node evaluation/harness/live.js"
   },
   "keywords": [
     "evaluation",

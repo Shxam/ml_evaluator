@@ -1,0 +1,33 @@
+{
+  "evaluation_id": "STAGE-9-LIVE-EVALUATION-EVIDENCE",
+  "timestamp": "2026-09-23T18:08:05.213Z",
+  "provider": "evolink",
+  "endpoint": "https://direct.evolink.ai/v1/chat/completions",
+  "models_evaluated": [
+    "gpt-5.6-sol",
+    "claude-opus-5"
+  ],
+  "evidence_records": [
+    {
+      "model": "gpt-5.6-sol",
+      "task_id": "instruction_following",
+      "attempt": 1,
+      "status": "COMPLETED",
+      "latency": 3251,
+      "input_sha256": "e1e262988ce25323aadc4a4b11b9cbbd2bf46f06ba16c296fc7df17ba6a7eabe",
+      "output_sha256": "6c513e4b1ff92157d1ad8ad445b87894f3dc5b9a5f56e2d200b991db587a19a2",
+      "error_category": null
+    },
+    {
+      "model": "claude-opus-5",
+      "task_id": "instruction_following",
+      "attempt": 1,
+      "status": "COMPLETED",
+      "latency": 3375,
+      "input_sha256": "e1e262988ce25323aadc4a4b11b9cbbd2bf46f06ba16c296fc7df17ba6a7eabe",
+      "output_sha256": "6c513e4b1ff92157d1ad8ad445b87894f3dc5b9a5f56e2d200b991db587a19a2",
+      "error_category": null
+    }
+  ],
+  "overall_outcome": "PASS"
+}
