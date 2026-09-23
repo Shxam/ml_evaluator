@@ -1,0 +1,27 @@
+{
+  "name": "evalcampaign",
+  "version": "1.0.0",
+  "description": "Deterministic command-line evaluation campaign manager",
+  "main": "dist/src/index.js",
+  "bin": {
+    "evalcampaign": "dist/src/bin/evalcampaign.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "node --test dist/test/*.test.js",
+    "verify": "node evaluation/verifier/run.js",
+    "evaluate": "node evaluation/harness/run.js"
+  },
+  "keywords": [
+    "evaluation",
+    "benchmark",
+    "agent",
+    "campaign"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "typescript": "^5.3.3"
+  }
+}

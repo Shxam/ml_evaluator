@@ -1,0 +1,141 @@
+{
+  "evaluation_id": "STAGE-8-VERIFICATION-EVIDENCE",
+  "timestamp": "2026-09-23T16:45:10.573Z",
+  "reference_result": "PASS",
+  "total_checks": 9,
+  "reference_checks": [
+    {
+      "id": "CHECK-EXEC-001",
+      "name": "evaluator result classification",
+      "status": "PASS",
+      "duration_ms": 6764
+    },
+    {
+      "id": "CHECK-CRASH-001",
+      "name": "atomic persistence/crash resilience",
+      "status": "PASS",
+      "duration_ms": 5696
+    },
+    {
+      "id": "CHECK-DRIFT-001",
+      "name": "provenance enforcement",
+      "status": "PASS",
+      "duration_ms": 5990
+    },
+    {
+      "id": "CHECK-DET-001",
+      "name": "deterministic output",
+      "status": "PASS",
+      "duration_ms": 14611
+    },
+    {
+      "id": "CHECK-STATE-001",
+      "name": "lifecycle guards",
+      "status": "PASS",
+      "duration_ms": 5454
+    },
+    {
+      "id": "CHECK-LOCK-001",
+      "name": "genuine POSIX locking",
+      "status": "PASS",
+      "duration_ms": 3875
+    },
+    {
+      "id": "CHECK-SCORE-001",
+      "name": "weighted scoring correctness",
+      "status": "PASS",
+      "duration_ms": 4937
+    },
+    {
+      "id": "CHECK-ROLLBACK-001",
+      "name": "rollback consistency",
+      "status": "PASS",
+      "duration_ms": 4695
+    },
+    {
+      "id": "CHECK-REGISTER-001",
+      "name": "binary register behavior",
+      "status": "PASS",
+      "duration_ms": 4291
+    }
+  ],
+  "mutants_total": 9,
+  "mutants_killed": 9,
+  "mutants_survived": 0,
+  "mutants": [
+    {
+      "mutant_id": "MUTANT-ZERO-SCORE",
+      "targeted_check": "CHECK-EXEC-001",
+      "description": "Interprets valid score 0.0 as failure / malformed output",
+      "status": "KILLED",
+      "killed_by_error": "t_zero treated as failure/missing: status=MALFORMED_OUTPUT, raw_score=null (expected COMPLETED with 0.0)",
+      "check_duration_ms": 4625
+    },
+    {
+      "mutant_id": "MUTANT-DIRECT-WRITE",
+      "targeted_check": "CHECK-CRASH-001",
+      "description": "Replaces atomic state/manifest persistence with direct in-place writes",
+      "status": "KILLED",
+      "killed_by_error": "MUTANT-DIRECT-WRITE detected: register was updated via direct in-place write instead of atomic temporary file replacement (.tmp + rename).",
+      "check_duration_ms": 889
+    },
+    {
+      "mutant_id": "MUTANT-DRIFT-BLIND",
+      "targeted_check": "CHECK-DRIFT-001",
+      "description": "Disables task definition SHA-256 provenance check",
+      "status": "KILLED",
+      "killed_by_error": "Export with drifted task provenance returned exit 0, expected 5 (PROVENANCE_DRIFT)",
+      "check_duration_ms": 1938
+    },
+    {
+      "mutant_id": "MUTANT-UNSORTED-JSON",
+      "targeted_check": "CHECK-DET-001",
+      "description": "Emits JSON without canonical deterministic key ordering",
+      "status": "KILLED",
+      "killed_by_error": "status --json output keys are not lexicographically sorted",
+      "check_duration_ms": 4040
+    },
+    {
+      "mutant_id": "MUTANT-PERMISSIVE-RESUME",
+      "targeted_check": "CHECK-STATE-001",
+      "description": "Allows resume execution when campaign is already in completed state",
+      "status": "KILLED",
+      "killed_by_error": "MUTANT-PERMISSIVE-RESUME detected: resume on completed campaign returned exit 0, expected 4 (INVALID_STATE)",
+      "check_duration_ms": 2164
+    },
+    {
+      "mutant_id": "MUTANT-LOCK-OMISSION",
+      "targeted_check": "CHECK-LOCK-001",
+      "description": "Omits genuine POSIX advisory locking and kernel contention",
+      "status": "KILLED",
+      "killed_by_error": "MUTANT-LOCK-OMISSION detected: Process B returned exit 4 instead of exit 3 (LOCK_CONTENTION) while lock was held by Process A.",
+      "check_duration_ms": 2057
+    },
+    {
+      "mutant_id": "MUTANT-SCORE-WEIGHT",
+      "targeted_check": "CHECK-SCORE-001",
+      "description": "Computes unweighted score average, ignoring task weights",
+      "status": "KILLED",
+      "killed_by_error": "MUTANT-SCORE-WEIGHT detected: model_1 score was 0.6, expected weighted mean 0.84 (unweighted is 0.60)",
+      "check_duration_ms": 3549
+    },
+    {
+      "mutant_id": "MUTANT-ROLLBACK-BROAD",
+      "targeted_check": "CHECK-ROLLBACK-001",
+      "description": "Overly broad rollback that deletes all run manifests",
+      "status": "KILLED",
+      "killed_by_error": "Rollback 1 failed with exit 4: Error: Cannot rollback past initial configured revision: no completed run batches exist to undo.\n",
+      "check_duration_ms": 2163
+    },
+    {
+      "mutant_id": "MUTANT-REGISTER-TEXT",
+      "targeted_check": "CHECK-REGISTER-001",
+      "description": "Corrupts binary register payloads with UTF-8 text encoding and newlines",
+      "status": "KILLED",
+      "killed_by_error": "MUTANT-REGISTER-TEXT detected: binary payload corrupted! Expected 16 bytes (000102fffe80c0aff5900d0a4142000a), received 32 bytes (000102efbfbdefbfbdefbfbdefbfbdefbfbdefbfbdefbfbd0d0a4142000a0a0a)",
+      "check_duration_ms": 726
+    }
+  ],
+  "overall_outcome": "SUCCESS",
+  "evidence_sha256": "524f1ebcbae50d34255bbdd8aeb840eee11c1d56e88393e6fb8cb890a93325ba"
+}
